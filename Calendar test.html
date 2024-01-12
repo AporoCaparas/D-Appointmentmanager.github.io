@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Scheduler</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            display: flex;
+            flex: 1;
+        }
+
+        #calendarContainer {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        #calendarHeader {
+            display: flex;
+            justify-content: space-around;
+            background-color: #eee;
+            padding: 10px;
+            width: 100%;
+        }
+
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 400px; /* Adjust the max-width as needed */
+        }
+
+        .day {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .day-header {
+            font-weight: bold;
+        }
+
+        .month-selector {
+            cursor: pointer;
+            padding: 5px;
+            text-align: center;
+            background-color: #eee;
+        }
+
+        #eventName,
+        #eventDateTime,
+        #timeSelector {
+            margin-top: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        #saveEventBtn {
+            margin-top: 10px;
+            padding: 5px;
+            cursor: pointer;
+            background-color: #303235;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #saveEventBtn:hover {
+            background-color: #303235;
+        }
+
+        #appointmentsContainer {
+            flex: 1;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            overflow-y: auto;
+        }
+
+        #appointmentsContainer h2 {
+            text-align: center;
+        }
+
+        .appointment-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .appointment-details {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .appointment-name {
+            margin-top: 5px;
+        }
+
+        .delete-button {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #ff5252;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .delete-button:hover {
+            background-color: #ff5252;
+        }
+
+        #timeSchedule {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 10px;
+        }
+
+        .time-slot {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #303235;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .time-slot:hover {
+            background-color: #303235;
+        }
+
+        .active {
+            background-color: #303235;
+            color: #fff;
+        }
+
+        .day:hover {
+            background-color: #303030;
+            color: #fff;
+        }
+
+        .active-day {
+            background-color: #303235;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="calendarContainer">
+            <div id="calendarHeader"></div>
+            <div id="calendar"></div>
+            <input type="text" id="eventName" placeholder="Enter Event Name">
+            <input type="text" id="eventDateTime" placeholder="Selected Date and Time">
+            <input type="time" id="timeSelector" placeholder="Select Time">
+            <button id="saveEventBtn" onclick="saveEvent()">Save Event</button>
+        </div>
+
+        <div id="appointmentsContainer">
+            <!-- Container on the right to display appointments -->
+            <h2>Appointments</h2>
+            <div id="appointments">
+                <!-- Appointments will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Your existing script goes here
+
+        // Function to handle saving events
+        function saveEvent() {
+            // Get selected date
+            var selectedDate = document.getElementById('eventDateTime').value;
+
+            // Get event name
+            var eventName = document.getElementById('eventName').value;
+
+            // Do something with the selected date and event name
+            alert('Event saved!\nEvent Name: ' + eventName + '\nDate and Time: ' + selectedDate);
+
+            // Display the appointment in the appointments container
+            displayAppointment(eventName, selectedDate);
+        }
+
+        // Function to display the appointment in the appointments container
+        function displayAppointment(name, date) {
+            const appointmentsContainer = document.getElementById('appointments');
+            const appointmentElement = document.createElement('div');
+            appointmentElement.classList.add('appointment-box');
+
+            const detailsElement = document.createElement('div');
+            detailsElement.classList.add('appointment-details');
+
+            // Parse the date to a JavaScript Date object
+            const parsedDate = new Date(date);
+
+            // Format the time in 12-hour clock with AM/PM
+            const formattedTime = parsedDate.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+            detailsElement.textContent = `${name}'s appointment on ${formattedTime} ${parsedDate.toLocaleString('en-US', { weekday: 'long' })}, ${parsedDate.toLocaleString('en-US', { month: 'long' })} ${parsedDate.getDate()}`;
+
+            const nameElement = document.createElement('div');
+            nameElement.classList.add('appointment-name');
+            nameElement.textContent = name;
+
+            const buttonsElement = document.createElement('div');
+            buttonsElement.classList.add('appointment-buttons');
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function () {
+                // Call your delete function here
+                deleteAppointment(name, date);
+            };
+
+            buttonsElement.appendChild(deleteButton);
+
+            appointmentElement.appendChild(detailsElement);
+            appointmentElement.appendChild(nameElement);
+            appointmentElement.appendChild(buttonsElement);
+
+            appointmentsContainer.appendChild(appointmentElement);
+        }
+
+        // Function to handle deleting an appointment
+        function deleteAppointment(name, date) {
+            // Implement your delete logic here
+            alert(`Delete ${name}'s appointment on ${date}`);
+            // Remove the appointment from the appointments container
+            const appointmentsContainer = document.getElementById('appointments');
+            const appointments = appointmentsContainer.getElementsByClassName('appointment-box');
+            for (let i = 0; i < appointments.length; i++) {
+                const appointment = appointments[i];
+                const details = appointment.querySelector('.appointment-details');
+                const nameElement = appointment.querySelector('.appointment-name');
+                const timeString = details.textContent.split(' ')[4]; // Extract the time part
+                const dateString = date.split(' ')[1] + ' ' + date.split(' ')[2] + ' ' + timeString; // Construct a comparable date string
+                if (nameElement.textContent === name && dateString === date) {
+                    // Remove the appointment element
+                    appointmentsContainer.removeChild(appointment);
+                    break;
+                }
+            }
+        }
+
+        // Initialize the calendar
+        createCalendar();
+
+        // Function to create the calendar
+        function createCalendar() {
+            var calendarHeader = document.getElementById('calendarHeader');
+            var calendar = document.getElementById('calendar');
+            var selectedMonthElement = null; // To store the selected month element
+            var selectedDayElement = null; // To store the selected day element
+
+            // Months array for header
+            var months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            // Create month selectors
+            months.forEach(function (month) {
+                var monthSelector = document.createElement('div');
+                monthSelector.className = 'month-selector';
+                monthSelector.textContent = month;
+                monthSelector.onclick = function () {
+                    // Remove active class from the previous selected month
+                    if (selectedMonthElement) {
+                        selectedMonthElement.classList.remove('active');
+                    }
+                    // Add active class to the clicked month
+                    monthSelector.classList.add('active');
+                    // Update selectedMonthElement
+                    selectedMonthElement = monthSelector;
+                    updateCalendar(month);
+                };
+                calendarHeader.appendChild(monthSelector);
+            });
+
+            // Call updateCalendar with the initial month
+            updateCalendar(months[0]);
+
+            // Function to update the calendar for the selected month
+            function updateCalendar(selectedMonth) {
+                calendar.innerHTML = ''; // Clear previous content
+                var daysInMonth = new Date(2024, months.indexOf(selectedMonth) + 1, 0).getDate();
+
+                // Create day headers
+                var daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                daysOfWeek.forEach(function (day) {
+                    var dayHeader = document.createElement('div');
+                    dayHeader.className = 'day day-header';
+                    dayHeader.textContent = day;
+                    calendar.appendChild(dayHeader);
+                });
+
+                // Create days
+                var firstDayOfMonth = new Date(2024, months.indexOf(selectedMonth), 1).getDay();
+
+                for (var i = 1; i <= daysInMonth; i++) {
+                    var dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+                    dayElement.textContent = i;
+
+                    // Calculate the correct index for the day based on the first day of the month
+                    var dayIndex = (firstDayOfMonth + i - 1) % 7;
+
+                    // Set the style to highlight the current day
+                    if (dayIndex === 0) {
+                        dayElement.classList.add('sunday');
+                    } else if (dayIndex === 6) {
+                        dayElement.classList.add('saturday');
+                    }
+
+                    dayElement.onclick = function () {
+                        // Remove active class from the previous selected day
+                        var activeDay = document.querySelector('.active-day');
+                        if (activeDay) {
+                            activeDay.classList.remove('active-day');
+                        }
+
+                        // Add active class to the clicked day
+                        this.classList.add('active-day');
+
+                        // Update selected date input when a day is clicked
+                        var selectedDateTime = selectedMonth + ' ' + this.textContent;
+                        var selectedTime = document.getElementById('timeSelector').value;
+                        if (selectedTime) {
+                            selectedDateTime += ' ' + selectedTime;
+                        }
+                        document.getElementById('eventDateTime').value = selectedDateTime;
+                    };
+                    calendar.appendChild(dayElement);
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

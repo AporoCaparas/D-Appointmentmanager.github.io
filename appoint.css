@@ -1,0 +1,143 @@
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            display: flex;
+            flex: 1;
+        }
+
+        #calendarContainer {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        #calendarHeader {
+            display: flex;
+            justify-content: space-around;
+            background-color: #eee;
+            padding: 10px;
+            width: 100%;
+        }
+
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 400px; /* Adjust the max-width as needed */
+        }
+
+        .day {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .day-header {
+            font-weight: bold;
+        }
+
+        .month-selector {
+            cursor: pointer;
+            padding: 5px;
+            text-align: center;
+            background-color: #eee;
+        }
+
+        #eventName,
+        #eventDateTime,
+        #timeSelector {
+            margin-top: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        #saveEventBtn {
+            margin-top: 10px;
+            padding: 5px;
+            cursor: pointer;
+            background-color: #303235;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #saveEventBtn:hover {
+            background-color: #303235;
+        }
+
+        #appointmentsContainer {
+            flex: 1;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            overflow-y: auto;
+        }
+
+        #appointmentsContainer h2 {
+            text-align: center;
+        }
+
+        .appointment-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .appointment-details {
+            font-weight: bold;
+        }
+
+        .appointment-name {
+            margin-top: 5px;
+        }
+
+        #timeSchedule {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 10px;
+        }
+
+        .time-slot {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #303235;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .time-slot:hover {
+            background-color: #303235;
+        }
+
+        .active {
+            background-color: #303235;
+            color: #fff;
+        }
+
+        .day:hover {
+            background-color: #303030;
+            color: #fff;
+        }
+
+        .active-day {
+            background-color: #303235;
+            color: #fff;
+        }

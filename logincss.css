@@ -1,0 +1,110 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    background-color: #f0f0f0; 
+    border: 2px solid #1a1a19;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    border: 2px solid #f5f5dc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* Cut edge effect */
+.input:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    background-color: #f5f5dc;
+}
+
+.input:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    background-color: #f5f5dc;
+}
+
+button {
+    padding: 15px 30px;
+    background-color: #f5f5dc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ddd; /* Lighter cream color on hover */
+}
+
+.register-link {
+    display: block;
+    margin-top: 15px;
+    color: #333; /* Adjust the color to make it visible on the background */
+    text-decoration: none;
+    cursor: pointer; /* Add cursor style to indicate it's clickable */
+}
+
+/* Registration Form Styles */
+.register-form {
+    display: none;
+    margin-top: 20px;
+}
+
+.show-register .register-form {
+    display: block;
+}
+
+/* Error message styling */
+.error-message {
+    font-size: 14px; /* Adjust the font size as needed */
+    margin-top: 5px; /* Adjust the margin as needed */
+    color: red;
+}
+
+.home-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-decoration: none;
+    color: #333; /* Adjust the color as needed */
+    font-size: 14px;
+}

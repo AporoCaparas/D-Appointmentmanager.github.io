@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="logincss.css">
+    <script src="login.js" defer></script>
+    <title>Register Page</title>
+</head>
+<body>
+
+    <!-- Navigation link to the home page -->
+    <a href="frontpage.html" class="home-link">Back to Home Page</a>
+
+    <div class="container">
+        <h2>Register</h2>
+        <div class="input-box">
+            <input type="text" id="username" placeholder="Username">
+            <div id="usernameError" class="error-message"></div>
+        </div>
+        <div class="input-box">
+            <input type="password" id="password" placeholder="Password">
+            <div id="passwordError" class="error-message"></div>
+        </div>
+        <div class="input-box">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+            <div id="confirmPasswordError" class="error-message"></div>
+        </div>
+        <button onclick="register()">Register</button>
+        
+        <a href="login.html" class="register-link">Already have an account? Login here!</a>
+    </div>
+
+    <!-- GIF Input -->
+    <input type="file" accept="clocky.gif" id="gifInput" style="display: none;" />
+    
+<script>
+function register() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Reset error messages
+    document.getElementById("usernameError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+    document.getElementById("confirmPasswordError").innerHTML = "";
+
+    // Check for empty fields and display error messages
+    if (!username) {
+        document.getElementById("usernameError").innerHTML = "Invalid username";
+    }
+
+    if (!password) {
+        document.getElementById("passwordError").innerHTML = "Invalid password";
+    }
+
+    if (!confirmPassword) {
+        document.getElementById("confirmPasswordError").innerHTML = "Please confirm password";
+    }
+
+    // Check if all input fields are filled
+    if (!username || !password || !confirmPassword) {
+        console.log("Please fill in all the required fields.");
+        return; // Stop the registration process
+    }
+
+    // Your registration logic here
+    console.log("Register clicked!");
+    console.log("Username: " + username);
+    console.log("Password: " + password);
+    console.log("Confirm Password: " + confirmPassword);
+
+    // Check if registration is successful (you might have your own logic here)
+    var registrationSuccessful = true;
+
+    if (registrationSuccessful) {
+        // Redirect to Mytmhl.html (or any other page)
+        window.location.href = "Mytmhl.html";
+    } else {
+        // Handle unsuccessful registration
+        // (e.g., display an error message)
+        console.log("Registration unsuccessful");
+    }
+}
+</script>
+</body>
+</html>
